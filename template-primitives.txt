@@ -1,0 +1,36 @@
+
+THE EIGHT PRIMITIVES OF GITHUB COPILOT CUSTOMIZATION
+
+Source: https://github.com/microsoftnorman/customize-your-repo-with-github-copilot
+
+GitHub Copilot is best understood as a system, not a menu of isolated features. The agent loop is at the core: context is assembled, the task is shaped, tools and permissions govern action, and the loop continues until the task completes. Customization enters through eight primitives — control points on that loop.
+
+1. Always-on Instructions
+   Organization- and repository-level instructions that are always included in the context. They shape every Copilot interaction without requiring the user to remember to include them.
+
+2. File-based Instructions
+   Instructions stored as files in the repository (e.g., .github/copilot-instructions.md). They travel with the code and are version-controlled alongside it.
+
+3. Prompts
+   Reusable prompt files (.prompt.md) stored in .github/prompts/. Team members can invoke them on-demand for common tasks — code reviews, diagnostics, scaffolding.
+
+4. Skills
+   Scoped tool access that defines what actions Copilot can take. Skills control which tools are available during a session and what permissions they carry.
+
+5. Custom Agents
+   Agent definitions stored as markdown files (e.g., .github/agents/*.agent.md). They give Copilot a persona, a systematic workflow, and safety constraints for specialized tasks.
+
+6. MCP (Model Context Protocol)
+   Connect external data sources and services to Copilot. MCP servers let the agent reach beyond the repository — into databases, APIs, cloud resources, and more.
+
+7. Hooks
+   Event-driven triggers that fire before or after agent actions. Hooks enforce policies, run validations, or chain additional steps into the agent loop automatically.
+
+8. Memory
+   Persistent context that carries across sessions. Memory lets Copilot remember project conventions, past decisions, and team preferences without re-prompting.
+
+These primitives compose together. The real value comes from how they interact — instructions shape behavior, prompts trigger workflows, agents use skills and MCP to act, hooks enforce guardrails, and memory maintains continuity.
+
+The same customization layer works across all surfaces: the IDE, the terminal (CLI), GitHub.com, GitHub Actions, and the Copilot SDK.
+
+Reference guide: https://github.com/microsoftnorman/customize-your-repo-with-github-copilot

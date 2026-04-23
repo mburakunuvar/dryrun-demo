@@ -1,0 +1,57 @@
+
+AGENTIC PLATFORM ENGINEERING WITH GITHUB COPILOT
+
+Source: https://github.com/Azure/git-ape
+
+Git-Ape is a platform engineering framework built on GitHub Copilot. It provides a structured, multi-agent system for planning, validating, and deploying Azure infrastructure — with security gates, cost analysis, and CI/CD pipeline integration built in.
+
+WHAT IT DOES
+Git-Ape packages a set of Copilot agents and skills focused on Azure infrastructure work:
+- Gather deployment requirements through conversational prompts
+- Generate ARM templates and supporting deployment artifacts
+- Run security, preflight, and cost checks before deployment
+- Support onboarding and post-deployment validation
+- Detect configuration drift between Azure and stored deployment state
+
+THE DEPLOYMENT FLOW
+1. Collect inputs — Requirements Gatherer interviews the user, validates CAF naming and SKU availability
+2. Generate & analyze — Template Generator produces ARM template, architecture diagram, cost estimate, and security report
+3. Security gate — Blocking check; failures loop back for fixes
+4. WAF review — Principal Architect scores against the 5 Well-Architected Framework pillars
+5. User confirmation — Nothing deploys without explicit approval
+6. Deploy — Resource Deployer runs az deployment, monitors, and retries
+7. Validate — Health checks, endpoint tests, architecture diagram generation
+
+AGENTS
+- @git-ape — Main orchestrator; coordinates stages, enforces security gates, delegates to subagents
+- Requirements Gatherer — Interviews user, CAF naming, SKU validation
+- Template Generator — ARM template, architecture diagram, cost estimate
+- Resource Deployer — az deployment, monitoring, retry, integration tests
+- Principal Architect — WAF 5-pillar review, trade-off analysis
+- IaC Exporter — Import live resources into templates
+- Git-Ape Onboarding — OIDC + RBAC, GitHub environments & secrets setup
+
+SKILLS (invoked by agents at specific stages)
+Pre-Deploy: azure-naming-research, azure-resource-availability, azure-security-analyzer, azure-deployment-preflight, azure-role-selector, azure-cost-estimator, prereq-check
+Post-Deploy: azure-integration-tester, azure-resource-visualizer
+Operations: azure-drift-detector, git-ape-onboarding
+
+EXECUTION MODES
+Interactive — Talk to @git-ape in VS Code Copilot Chat, authenticate via az login, approve each step in real time.
+Headless — Copilot Coding Agent picks up a GitHub issue, generates templates on a branch, opens a PR, and CI/CD workflows handle validation, deployment, and teardown via OIDC.
+
+CI/CD WORKFLOWS
+- git-ape-plan.yml — PR with template changes → validate, what-if, post plan as PR comment
+- git-ape-deploy.yml — Merge to main or /deploy comment → execute ARM deployment
+- git-ape-destroy.yml — Merge PR with destroy-requested → delete resource group
+- git-ape-verify.yml — Manual dispatch → verify OIDC, RBAC, pipeline health
+
+GET STARTED
+Install: copilot plugin marketplace add Azure/git-ape && copilot plugin install Azure/git-ape
+Example prompts:
+- @git-ape deploy a Python function app
+- @git-ape deploy a web app with SQL database
+- @Git-Ape Onboarding set up this repo for Azure deployments
+- @git-ape destroy Python function app
+
+Repository: https://github.com/Azure/git-ape
