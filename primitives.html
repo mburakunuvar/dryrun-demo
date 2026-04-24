@@ -3,9 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Primitives</title>
+  <title>The Eight Primitives of GitHub Copilot Customization</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #24292f;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #24292f 0%, #0969da 100%);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 0.5rem; font-size: 2.25rem; }
+    header p { margin: 0; opacity: 0.9; max-width: 720px; margin-inline: auto; }
+    nav { margin-top: 1.25rem; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    .intro {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      border-left: 4px solid #0969da;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .card .num {
+      display: inline-block;
+      background: #0969da;
+      color: #fff;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 1.75rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; display: flex; align-items: center; font-size: 1.1rem; }
+    .card p { margin: 0; font-size: 0.95rem; color: #57606a; }
+    .outro {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-top: 2rem;
+    }
+    .outro a { color: #0969da; }
+    footer { text-align: center; padding: 1.5rem; color: #57606a; font-size: 0.875rem; }
+  </style>
 </head>
-<body style="margin:0;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;background:#f5f5f5;color:#888;">
-  <p style="font-size:1.5rem;">This will be the Primitives page</p>
+<body>
+  <header>
+    <h1>The Eight Primitives of GitHub Copilot Customization</h1>
+    <p>Control points on the agent loop — how context, tasks, tools, and policies shape every Copilot interaction.</p>
+    <nav>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>GitHub Copilot is best understood as a system, not a menu of isolated features. The agent loop is at the core: context is assembled, the task is shaped, tools and permissions govern action, and the loop continues until the task completes. Customization enters through <strong>eight primitives</strong> — control points on that loop.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h3><span class="num">1</span>Always-on Instructions</h3>
+        <p>Organization- and repository-level instructions that are always included in the context. They shape every Copilot interaction without requiring the user to remember to include them.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">2</span>File-based Instructions</h3>
+        <p>Instructions stored as files in the repository (e.g., <code>.github/copilot-instructions.md</code>). They travel with the code and are version-controlled alongside it.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">3</span>Prompts</h3>
+        <p>Reusable prompt files (<code>.prompt.md</code>) stored in <code>.github/prompts/</code>. Team members can invoke them on-demand for common tasks — code reviews, diagnostics, scaffolding.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">4</span>Skills</h3>
+        <p>Scoped tool access that defines what actions Copilot can take. Skills control which tools are available during a session and what permissions they carry.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">5</span>Custom Agents</h3>
+        <p>Agent definitions stored as markdown files (e.g., <code>.github/agents/*.agent.md</code>). They give Copilot a persona, a systematic workflow, and safety constraints for specialized tasks.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">6</span>MCP (Model Context Protocol)</h3>
+        <p>Connect external data sources and services to Copilot. MCP servers let the agent reach beyond the repository — into databases, APIs, cloud resources, and more.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">7</span>Hooks</h3>
+        <p>Event-driven triggers that fire before or after agent actions. Hooks enforce policies, run validations, or chain additional steps into the agent loop automatically.</p>
+      </article>
+      <article class="card">
+        <h3><span class="num">8</span>Memory</h3>
+        <p>Persistent context that carries across sessions. Memory lets Copilot remember project conventions, past decisions, and team preferences without re-prompting.</p>
+      </article>
+    </section>
+
+    <section class="outro">
+      <p>These primitives compose together. The real value comes from how they interact — instructions shape behavior, prompts trigger workflows, agents use skills and MCP to act, hooks enforce guardrails, and memory maintains continuity.</p>
+      <p>The same customization layer works across all surfaces: the IDE, the terminal (CLI), GitHub.com, GitHub Actions, and the Copilot SDK.</p>
+      <p>Reference guide: <a href="https://github.com/microsoftnorman/customize-your-repo-with-github-copilot">microsoftnorman/customize-your-repo-with-github-copilot</a></p>
+    </section>
+  </main>
+
+  <footer>Built for the GitHub Copilot customization demo.</footer>
 </body>
 </html>
