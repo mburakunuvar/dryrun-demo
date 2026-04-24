@@ -1,13 +1,12 @@
 # Azure Resource Details
 
-> Update this file manually during the **Azure Static Web App Setup** issue (Issue #1).
-> Fill in the actual values after a successful deployment so the team can reference them.
+> Updated during **Azure Static Web App Setup** (Issue #1).
 
 | Property | Value |
 |---|---|
-| **Subscription** | _TBD_ |
-| **Resource Group** | _TBD_ |
-| **Static Web App Name** | _TBD_ |
-| **Region** | _TBD_ |
-| **Live URL** | _TBD_ |
-| **Default Hostname** | _TBD_ |
+| **Subscription** | burak-MS (`9103cd46-543d-4b44-a957-f011acb997c6`) |
+| **Resource Group** | `dryrun-demo-rg` |
+| **Static Web App Name** | `dryrun-demo-swa` |
+| **Region** | West Europe |
+| **Live URL** | https://black-bush-0b8cc3803.7.azurestaticapps.net |
+| **Default Hostname** | `black-bush-0b8cc3803.7.azurestaticapps.net` |
