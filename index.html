@@ -75,6 +75,7 @@
       position: relative;
     }
 
+    /* decorative; ignored by AT via pseudo-element */
     .surfaces li::before {
       content: "→";
       position: absolute;
@@ -134,26 +135,32 @@
 </head>
 <body>
   <div class="container">
-    <h1>GitHub Copilot Across Surfaces</h1>
+    <header>
+      <h1>GitHub Copilot Across Surfaces</h1>
+    </header>
 
-    <p class="intro">
-      GitHub Copilot is more than just an IDE extension. It's a comprehensive AI-powered development platform that seamlessly integrates across multiple surfaces to enhance your entire development workflow.
-    </p>
+    <main>
+      <p class="intro">
+        GitHub Copilot is more than just an IDE extension. It's a comprehensive AI-powered development platform that seamlessly integrates across multiple surfaces to enhance your entire development workflow.
+      </p>
 
-    <div class="surfaces">
-      <h2>The Four Copilot Surfaces</h2>
-      <ul>
-        <li><strong>GitHub.com</strong> - AI-powered code suggestions, pull request summaries, and intelligent repository insights directly in your browser</li>
-        <li><strong>IDE</strong> - Real-time code completions, explanations, and refactoring assistance integrated into your favorite editor</li>
-        <li><strong>CLI</strong> - Natural language command suggestions and explanations right in your terminal</li>
-        <li><strong>SDK</strong> - Programmatic access to Copilot capabilities for building custom integrations and workflows</li>
-      </ul>
-    </div>
+      <section class="surfaces">
+        <h2>The Four Copilot Surfaces</h2>
+        <ul>
+          <li><strong>GitHub.com</strong> - AI-powered code suggestions, pull request summaries, and intelligent repository insights directly in your browser</li>
+          <li><strong>IDE</strong> - Real-time code completions, explanations, and refactoring assistance integrated into your favorite editor</li>
+          <li><strong>CLI</strong> - Natural language command suggestions and explanations right in your terminal</li>
+          <li><strong>SDK</strong> - Programmatic access to Copilot capabilities for building custom integrations and workflows</li>
+        </ul>
+      </section>
+    </main>
 
-    <div class="nav-buttons">
+    <nav class="nav-buttons" aria-label="Primary">
       <a href="primitives.html" class="nav-button">Primitives</a>
       <a href="ape.html" class="nav-button">Agentic Platform Engineering</a>
-    </div>
+    </nav>
+
+    <footer>Built for the GitHub Copilot customization demo.</footer>
   </div>
 </body>
 </html>

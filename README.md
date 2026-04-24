@@ -190,3 +190,9 @@ Trigger the existing Azure Static Web Apps workflow to deploy the updated applic
 | `template-azureapp.md` | Reusable runbook for Azure Static Web App setup (Issue #1) |
 | `.github/workflows/setup-issues.yml` | Creates issues and labels — trigger manually after using the template (see [Getting Started](#getting-started)) |
 | `.github/workflows/azure-static-web-apps.yml` | Manual-trigger deployment to Azure Static Web Apps |
+
+---
+
+## Image guidelines
+
+Any `<img>` added to these pages must include meaningful `alt` text that describes the image's purpose. For purely decorative images, use `alt=""` so assistive technologies skip them.
