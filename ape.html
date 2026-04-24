@@ -3,9 +3,359 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agentic Platform Engineering</title>
+  <title>Agentic Platform Engineering · Git-Ape</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-elev: #161b22;
+      --bg-soft: #1c2230;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-dim: #9da7b3;
+      --accent: #7c3aed;
+      --accent-2: #2f81f7;
+      --accent-3: #3fb950;
+      --code-bg: #0b0f14;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .nav-brand .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    .nav-links { display: flex; gap: 22px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; }
+    .nav-links a.active { color: var(--text); }
+
+    .hero { max-width: 1100px; margin: 0 auto; padding: 72px 24px 48px; text-align: center; }
+    .hero .eyebrow {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(124, 58, 237, 0.12);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      line-height: 1.15; margin: 18px 0 14px;
+      background: linear-gradient(135deg, #fff 0%, #b8c1cd 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p.lede { max-width: 760px; margin: 0 auto; color: var(--text-dim); font-size: 1.1rem; }
+    .hero .cta { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 10px 18px; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--bg-elev); color: var(--text); cursor: pointer;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+    }
+    .btn:hover { text-decoration: none; filter: brightness(1.1); }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+    section { margin-top: 64px; }
+    section h2 { font-size: 1.6rem; margin: 0 0 8px; display: flex; align-items: center; gap: 10px; }
+    section h2 .num {
+      font-size: 0.85rem; color: var(--accent); font-weight: 500;
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    }
+    section .sub { color: var(--text-dim); margin: 0 0 24px; }
+
+    .card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .grid { display: grid; gap: 16px; }
+    .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    .card h3 { margin: 0 0 6px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+    .card h3 code {
+      background: var(--bg-soft); padding: 2px 8px; border-radius: 6px;
+      font-size: 0.85rem; color: var(--accent-2);
+    }
+    .card p { margin: 0; color: var(--text-dim); font-size: 0.92rem; }
+
+    .flow { display: grid; gap: 12px; }
+    .step {
+      display: grid; grid-template-columns: 40px 1fr; gap: 14px;
+      padding: 14px 16px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      align-items: start;
+    }
+    .step .n {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.9rem; font-weight: 600; color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    .step strong { color: var(--text); }
+    .step .body { color: var(--text-dim); font-size: 0.95rem; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 0.8rem; padding: 4px 10px; border-radius: 999px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .chip.pre { border-color: rgba(63, 185, 80, 0.4); color: #7ee787; }
+    .chip.post { border-color: rgba(47, 129, 247, 0.4); color: #79b8ff; }
+    .chip.ops { border-color: rgba(210, 153, 34, 0.4); color: #e3b341; }
+
+    .skill-group { margin-bottom: 14px; }
+    .skill-group .label {
+      font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 8px;
+    }
+
+    .modes { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .mode {
+      background: var(--bg-elev); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .mode h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .mode .tag {
+      display: inline-block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;
+    }
+    .mode.interactive .tag { background: rgba(124, 58, 237, 0.15); color: var(--accent); }
+    .mode.headless .tag { background: rgba(63, 185, 80, 0.15); color: var(--accent-3); }
+    .mode p { color: var(--text-dim); margin: 0; font-size: 0.95rem; }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px; overflow-x: auto;
+      font-size: 0.88rem;
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      color: #e6edf3; margin: 0;
+    }
+    code { font-family: "SF Mono", ui-monospace, Menlo, monospace; }
+
+    .workflows table {
+      width: 100%; border-collapse: collapse;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .workflows th, .workflows td {
+      text-align: left; padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .workflows th {
+      background: var(--bg-soft); color: var(--text-dim);
+      font-weight: 500; font-size: 0.8rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .workflows tr:last-child td { border-bottom: 0; }
+    .workflows td code {
+      background: var(--bg-soft); padding: 2px 8px; border-radius: 6px;
+      font-size: 0.85rem; color: var(--accent-2);
+    }
+
+    .label-up {
+      font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 8px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px; text-align: center;
+      color: var(--text-dim); font-size: 0.88rem;
+    }
+    footer a { color: var(--text-dim); }
+  </style>
 </head>
-<body style="margin:0;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;background:#f5f5f5;color:#888;">
-  <p style="font-size:1.5rem;">This will be the Agentic Platform Engineering page</p>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <span class="dot"></span>
+        <span>Copilot Across Surfaces</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="primitives.html">Primitives</a>
+        <a href="ape.html" class="active">APE</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">Agentic Platform Engineering</span>
+    <h1>Git-Ape — multi-agent Azure deployments, powered by GitHub Copilot</h1>
+    <p class="lede">
+      Git-Ape is a platform engineering framework built on GitHub Copilot. It provides a structured,
+      multi-agent system for planning, validating, and deploying Azure infrastructure — with
+      security gates, cost analysis, and CI/CD pipeline integration built in.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Azure/git-ape" target="_blank" rel="noopener">View on GitHub</a>
+      <a class="btn" href="#get-started">Get Started</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="what">
+      <h2><span class="num">01</span>What it does</h2>
+      <p class="sub">Git-Ape packages a set of Copilot agents and skills focused on Azure infrastructure work.</p>
+      <div class="grid cols-2">
+        <div class="card"><h3>Requirements</h3><p>Gather deployment requirements through conversational prompts.</p></div>
+        <div class="card"><h3>Artifacts</h3><p>Generate ARM templates and supporting deployment artifacts.</p></div>
+        <div class="card"><h3>Pre-flight</h3><p>Run security, preflight, and cost checks before deployment.</p></div>
+        <div class="card"><h3>Lifecycle</h3><p>Support onboarding and post-deployment validation.</p></div>
+        <div class="card"><h3>Drift</h3><p>Detect configuration drift between Azure and stored deployment state.</p></div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <h2><span class="num">02</span>The deployment flow</h2>
+      <p class="sub">Seven stages, with blocking gates and explicit user confirmation.</p>
+      <div class="flow">
+        <div class="step"><div class="n">1</div><div><strong>Collect inputs</strong><div class="body">Requirements Gatherer interviews the user, validates CAF naming and SKU availability.</div></div></div>
+        <div class="step"><div class="n">2</div><div><strong>Generate &amp; analyze</strong><div class="body">Template Generator produces ARM template, architecture diagram, cost estimate, and security report.</div></div></div>
+        <div class="step"><div class="n">3</div><div><strong>Security gate</strong><div class="body">Blocking check; failures loop back for fixes.</div></div></div>
+        <div class="step"><div class="n">4</div><div><strong>WAF review</strong><div class="body">Principal Architect scores against the 5 Well-Architected Framework pillars.</div></div></div>
+        <div class="step"><div class="n">5</div><div><strong>User confirmation</strong><div class="body">Nothing deploys without explicit approval.</div></div></div>
+        <div class="step"><div class="n">6</div><div><strong>Deploy</strong><div class="body">Resource Deployer runs <code>az deployment</code>, monitors, and retries.</div></div></div>
+        <div class="step"><div class="n">7</div><div><strong>Validate</strong><div class="body">Health checks, endpoint tests, architecture diagram generation.</div></div></div>
+      </div>
+    </section>
+
+    <section id="agents">
+      <h2><span class="num">03</span>Agents</h2>
+      <p class="sub">A coordinated set of specialists, orchestrated by a main agent.</p>
+      <div class="grid cols-2">
+        <div class="card"><h3><code>@git-ape</code></h3><p>Main orchestrator — coordinates stages, enforces security gates, delegates to subagents.</p></div>
+        <div class="card"><h3>Requirements Gatherer</h3><p>Interviews user, CAF naming, SKU validation.</p></div>
+        <div class="card"><h3>Template Generator</h3><p>ARM template, architecture diagram, cost estimate.</p></div>
+        <div class="card"><h3>Resource Deployer</h3><p><code>az deployment</code>, monitoring, retry, integration tests.</p></div>
+        <div class="card"><h3>Principal Architect</h3><p>WAF 5-pillar review and trade-off analysis.</p></div>
+        <div class="card"><h3>IaC Exporter</h3><p>Import live resources into templates.</p></div>
+        <div class="card"><h3>Git-Ape Onboarding</h3><p>OIDC + RBAC, GitHub environments &amp; secrets setup.</p></div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2><span class="num">04</span>Skills</h2>
+      <p class="sub">Invoked by agents at specific stages of the pipeline.</p>
+      <div class="card">
+        <div class="skill-group">
+          <div class="label">Pre-Deploy</div>
+          <div class="chips">
+            <span class="chip pre">azure-naming-research</span>
+            <span class="chip pre">azure-resource-availability</span>
+            <span class="chip pre">azure-security-analyzer</span>
+            <span class="chip pre">azure-deployment-preflight</span>
+            <span class="chip pre">azure-role-selector</span>
+            <span class="chip pre">azure-cost-estimator</span>
+            <span class="chip pre">prereq-check</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="label">Post-Deploy</div>
+          <div class="chips">
+            <span class="chip post">azure-integration-tester</span>
+            <span class="chip post">azure-resource-visualizer</span>
+          </div>
+        </div>
+        <div class="skill-group" style="margin-bottom:0;">
+          <div class="label">Operations</div>
+          <div class="chips">
+            <span class="chip ops">azure-drift-detector</span>
+            <span class="chip ops">git-ape-onboarding</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modes">
+      <h2><span class="num">05</span>Execution modes</h2>
+      <p class="sub">Two ways to run Git-Ape — interactive in the IDE, or headless via the Coding Agent.</p>
+      <div class="modes">
+        <div class="mode interactive">
+          <span class="tag">Interactive</span>
+          <h3>VS Code Copilot Chat</h3>
+          <p>Talk to <code>@git-ape</code> in VS Code Copilot Chat, authenticate via <code>az login</code>, and approve each step in real time.</p>
+        </div>
+        <div class="mode headless">
+          <span class="tag">Headless</span>
+          <h3>Copilot Coding Agent</h3>
+          <p>Coding Agent picks up a GitHub issue, generates templates on a branch, opens a PR, and CI/CD workflows handle validation, deployment, and teardown via OIDC.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflows" class="workflows">
+      <h2><span class="num">06</span>CI/CD workflows</h2>
+      <p class="sub">GitHub Actions workflows that wire Git-Ape into your repository.</p>
+      <table>
+        <thead>
+          <tr><th>Workflow</th><th>Trigger</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>git-ape-plan.yml</code></td><td>PR with template changes</td><td>Validate, what-if, post plan as PR comment</td></tr>
+          <tr><td><code>git-ape-deploy.yml</code></td><td>Merge to main or <code>/deploy</code> comment</td><td>Execute ARM deployment</td></tr>
+          <tr><td><code>git-ape-destroy.yml</code></td><td>Merge PR with <code>destroy-requested</code></td><td>Delete resource group</td></tr>
+          <tr><td><code>git-ape-verify.yml</code></td><td>Manual dispatch</td><td>Verify OIDC, RBAC, pipeline health</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="get-started">
+      <h2><span class="num">07</span>Get started</h2>
+      <p class="sub">Install the plugin and try one of the example prompts.</p>
+      <div class="grid cols-2">
+        <div>
+          <div class="label-up">Install</div>
+<pre><code>copilot plugin marketplace add Azure/git-ape
+copilot plugin install Azure/git-ape</code></pre>
+        </div>
+        <div>
+          <div class="label-up">Example prompts</div>
+<pre><code>@git-ape deploy a Python function app
+@git-ape deploy a web app with SQL database
+@Git-Ape Onboarding set up this repo for Azure deployments
+@git-ape destroy Python function app</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Source: <a href="https://github.com/Azure/git-ape" target="_blank" rel="noopener">github.com/Azure/git-ape</a>
+  </footer>
 </body>
 </html>
